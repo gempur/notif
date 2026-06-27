@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Tentang — Notifikasi{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+  <!-- Header -->
+  <div class="rounded-2xl bg-white p-10 shadow-lg text-center">
+    <h1 class="text-4xl font-bold text-slate-900">Tentang Aplikasi</h1>
+    <p class="mt-3 text-lg text-slate-500">Demonstrasi Event Driven Architecture (EDA) dengan Python &amp; RabbitMQ</p>
+  </div>
+
+  <!-- Deskripsi -->
+  <div class="rounded-2xl bg-white p-8 shadow">
+    <h2 class="text-xl font-semibold text-slate-800 mb-3">Apa ini?</h2>
+    <p class="text-slate-600 leading-relaxed">
+      Aplikasi ini merupakan contoh penerapan <span class="font-medium text-slate-800">Event Driven Architecture (EDA)</span>
+      menggunakan ekosistem Python. Setiap aksi pengguna menghasilkan sebuah <em>event</em> yang dikirim ke antrian,
+      kemudian diproses secara asinkron oleh worker, dan hasilnya dikirimkan melalui Email maupun Telegram.
+    </p>
+  </div>
+
+  <!-- Arsitektur -->
+  <div class="rounded-2xl bg-white p-8 shadow">
+    <h2 class="text-xl font-semibold text-slate-800 mb-6">Arsitektur</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <!-- Flask -->
+      <div class="flex flex-col items-center rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white text-xl font-bold">1</div>
+        <h3 class="font-semibold text-slate-800">Flask UI</h3>
+        <p class="mt-2 text-sm text-slate-500">Antarmuka web berbasis Flask. Pengguna berinteraksi di sini, lalu event dipublikasikan ke RabbitMQ.</p>
+      </div>
+
+      <!-- RabbitMQ -->
+      <div class="flex flex-col items-center rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white text-xl font-bold">2</div>
+        <h3 class="font-semibold text-slate-800">RabbitMQ</h3>
+        <p class="mt-2 text-sm text-slate-500">Message broker yang mengelola antrian (queue). Menjamin event tidak hilang dan terkirim ke worker.</p>
+      </div>
+
+      <!-- Worker -->
+      <div class="flex flex-col items-center rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-sky-600 text-white text-xl font-bold">3</div>
+        <h3 class="font-semibold text-slate-800">Worker / Agent</h3>
+        <p class="mt-2 text-sm text-slate-500">Proses Python yang berjalan di latar belakang. Mengonsumsi event dari antrian dan mengeksekusi tugas.</p>
+      </div>
+
+      <!-- Output -->
+      <div class="flex flex-col items-center rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
+        <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white text-xl font-bold">4</div>
+        <h3 class="font-semibold text-slate-800">Notifikasi</h3>
+        <p class="mt-2 text-sm text-slate-500">Hasil dikirim ke pengguna melalui <span class="font-medium">Email</span> dan <span class="font-medium">Telegram</span>.</p>
+      </div>
+
+    </div>
+
+    <!-- Flow diagram sederhana -->
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-sm font-medium text-slate-600">
+      <span class="rounded-lg bg-slate-900 text-white px-4 py-2">Flask</span>
+      <span class="text-slate-400">→ event →</span>
+      <span class="rounded-lg bg-orange-500 text-white px-4 py-2">RabbitMQ</span>
+      <span class="text-slate-400">→ consume →</span>
+      <span class="rounded-lg bg-sky-600 text-white px-4 py-2">Worker</span>
+      <span class="text-slate-400">→ kirim →</span>
+      <span class="rounded-lg bg-emerald-600 text-white px-4 py-2">Email &amp; Telegram</span>
+    </div>
+  </div>
+
+  <!-- Stack teknologi -->
+  <div class="rounded-2xl bg-white p-8 shadow">
+    <h2 class="text-xl font-semibold text-slate-800 mb-4">Stack Teknologi</h2>
+    <ul class="space-y-3 text-slate-600">
+      <li class="flex items-start gap-3">
+        <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-bold">✓</span>
+        <span><span class="font-medium text-slate-800">Python</span> — bahasa pemrograman utama untuk semua komponen.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-bold">✓</span>
+        <span><span class="font-medium text-slate-800">Flask</span> — web framework ringan sebagai antarmuka pengguna (UI).</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-bold">✓</span>
+        <span><span class="font-medium text-slate-800">RabbitMQ</span> — message broker berbasis AMQP untuk mengelola antrian event.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-bold">✓</span>
+        <span><span class="font-medium text-slate-800">Worker / Agent</span> — proses background yang mengonsumsi dan memproses event dari antrian.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-bold">✓</span>
+        <span><span class="font-medium text-slate-800">Email &amp; Telegram</span> — saluran pengiriman notifikasi hasil pemrosesan ke pengguna.</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

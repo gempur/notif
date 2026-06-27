@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Demo EDA — Notifikasi{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+  <!-- Header -->
+  <div class="rounded-2xl bg-white p-8 shadow-lg text-center">
+    <h1 class="text-3xl font-bold text-slate-900">Demo Event Driven Architecture</h1>
+    <p class="mt-2 text-slate-500">Pilih skenario di bawah, isi form, lalu pantau event log secara real-time.</p>
+  </div>
+
+  <!-- 4 Demo Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- 1. Sambutan Pengguna -->
+    <div class="rounded-2xl bg-white shadow p-6 border-t-4 border-violet-500">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-violet-100 text-violet-700 font-bold text-lg">1</span>
+        <div>
+          <h2 class="font-semibold text-slate-800">Sambutan Pengguna</h2>
+          <p class="text-xs text-slate-500">Worker mengirim email selamat datang</p>
+        </div>
+      </div>
+      <form class="demo-form space-y-3" data-queue="sambutan">
+        <input name="nama" required placeholder="Nama lengkap"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400">
+        <input name="email" type="email" required placeholder="Alamat email"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400">
+        <button type="submit"
+          class="w-full rounded-lg bg-violet-600 text-white py-2 text-sm font-medium hover:bg-violet-700 transition">
+          🚀 Kirim Event
+        </button>
+      </form>
+    </div>
+
+    <!-- 2. Konfirmasi Pesanan -->
+    <div class="rounded-2xl bg-white shadow p-6 border-t-4 border-amber-500">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-amber-100 text-amber-700 font-bold text-lg">2</span>
+        <div>
+          <h2 class="font-semibold text-slate-800">Konfirmasi Pesanan</h2>
+          <p class="text-xs text-slate-500">Worker mengirim konfirmasi via Telegram</p>
+        </div>
+      </div>
+      <form class="demo-form space-y-3" data-queue="pesanan">
+        <input name="item" required placeholder="Nama produk"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
+        <input name="qty" type="number" min="1" required placeholder="Jumlah (qty)"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
+        <button type="submit"
+          class="w-full rounded-lg bg-amber-500 text-white py-2 text-sm font-medium hover:bg-amber-600 transition">
+          🚀 Kirim Event
+        </button>
+      </form>
+    </div>
+
+    <!-- 3. Laporan Statistik -->
+    <div class="rounded-2xl bg-white shadow p-6 border-t-4 border-sky-500">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-sky-100 text-sky-700 font-bold text-lg">3</span>
+        <div>
+          <h2 class="font-semibold text-slate-800">Laporan Statistik</h2>
+          <p class="text-xs text-slate-500">Worker generate laporan &amp; kirim via Email</p>
+        </div>
+      </div>
+      <form class="demo-form space-y-3" data-queue="laporan">
+        <select name="periode"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400">
+          <option value="Harian">Harian</option>
+          <option value="Mingguan">Mingguan</option>
+          <option value="Bulanan">Bulanan</option>
+        </select>
+        <select name="format"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400">
+          <option value="PDF">PDF</option>
+          <option value="Excel">Excel</option>
+          <option value="CSV">CSV</option>
+        </select>
+        <button type="submit"
+          class="w-full rounded-lg bg-sky-600 text-white py-2 text-sm font-medium hover:bg-sky-700 transition">
+          🚀 Kirim Event
+        </button>
+      </form>
+    </div>
+
+    <!-- 4. Broadcast Pengumuman -->
+    <div class="rounded-2xl bg-white shadow p-6 border-t-4 border-rose-500">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-rose-100 text-rose-700 font-bold text-lg">4</span>
+        <div>
+          <h2 class="font-semibold text-slate-800">Broadcast Pengumuman</h2>
+          <p class="text-xs text-slate-500">Worker menyebarkan ke Email + Telegram</p>
+        </div>
+      </div>
+      <form class="demo-form space-y-3" data-queue="broadcast">
+        <textarea name="pesan" required rows="3" placeholder="Tulis pengumuman di sini…"
+          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400 resize-none"></textarea>
+        <button type="submit"
+          class="w-full rounded-lg bg-rose-600 text-white py-2 text-sm font-medium hover:bg-rose-700 transition">
+          🚀 Kirim Event
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Event Log -->
+  <div class="rounded-2xl bg-white shadow p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold text-slate-800">📋 Event Log <span class="text-xs font-normal text-slate-400">(real-time)</span></h2>
+      <span id="logStatus" class="text-xs text-slate-400">Memuat…</span>
+    </div>
+    <div id="logContainer" class="space-y-3 min-h-[80px]">
+      <p id="logEmpty" class="text-sm text-slate-400 text-center py-8">Belum ada event. Coba kirim salah satu demo di atas.</p>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const WARNA = {
+  violet: { bg: "bg-violet-50", badge: "bg-violet-100 text-violet-700", border: "border-violet-200" },
+  amber:  { bg: "bg-amber-50",  badge: "bg-amber-100 text-amber-700",   border: "border-amber-200"  },
+  sky:    { bg: "bg-sky-50",    badge: "bg-sky-100 text-sky-700",       border: "border-sky-200"    },
+  rose:   { bg: "bg-rose-50",   badge: "bg-rose-100 text-rose-700",     border: "border-rose-200"   },
+};
+
+// submit forms via AJAX
+$(".demo-form").on("submit", function (e) {
+  e.preventDefault();
+  const queue = $(this).data("queue");
+  const $btn = $(this).find("button[type=submit]");
+  $btn.disabled = true;
+  $btn.text("Mengirim…");
+  $.post(`/demo/${queue}`, $(this).serialize())
+    .done(() => { $btn.text("✅ Terkirim!"); setTimeout(() => $btn.text("🚀 Kirim Event"), 2000); })
+    .fail(() => { $btn.text("❌ Gagal"); setTimeout(() => $btn.text("🚀 Kirim Event"), 2000); })
+    .always(() => { $btn.disabled = false; });
+});
+
+// poll event log
+let knownIds = new Set();
+
+function loadLog() {
+  $.getJSON("/demo/log", function (events) {
+    $("#logStatus").text("Terakhir diperbarui: " + new Date().toLocaleTimeString("id-ID"));
+
+    const newEvents = events.filter(e => !knownIds.has(e.id));
+    if (newEvents.length === 0) return;
+
+    if (events.length > 0) $("#logEmpty").hide();
+
+    newEvents.forEach(ev => {
+      knownIds.add(ev.id);
+      const w = WARNA[ev.warna] || WARNA.violet;
+      const deliveryBadges = (ev.delivery || []).map(d =>
+        `<span class="rounded-full bg-slate-100 text-slate-600 text-xs px-2 py-0.5">${d}</span>`
+      ).join(" ");
+
+      const card = `
+        <div class="rounded-xl border ${w.border} ${w.bg} p-4 animate-pulse-once">
+          <div class="flex items-start justify-between gap-2 flex-wrap">
+            <div class="flex items-center gap-2">
+              <span class="rounded-full ${w.badge} text-xs font-medium px-2 py-0.5">${ev.label}</span>
+              <span class="text-xs text-slate-400">${ev.waktu}</span>
+            </div>
+            <div class="flex gap-1 flex-wrap">${deliveryBadges}</div>
+          </div>
+          <p class="mt-2 text-sm text-slate-700">${ev.detail}</p>
+        </div>`;
+      $("#logContainer").prepend(card);
+    });
+
+    // keep only last 20 cards in DOM
+    $("#logContainer > div").slice(20).remove();
+  });
+}
+
+loadLog();
+setInterval(loadLog, 2000);
+</script>
+{% endblock %}

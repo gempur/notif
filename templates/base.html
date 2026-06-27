@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Notifikasi{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen bg-slate-100">
+
+  <nav class="bg-slate-900 text-white px-6 py-3 shadow">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <a href="/" class="text-lg font-semibold tracking-wide hover:text-slate-300 transition">Notifikasi</a>
+      <div class="flex items-center gap-4">
+        <a href="/demo" class="text-sm text-slate-400 hover:text-white transition">Demo</a>
+        <a href="/about" class="text-sm text-slate-400 hover:text-white transition">Tentang</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-4 py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
